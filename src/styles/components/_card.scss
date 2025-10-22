@@ -1,0 +1,90 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "sass:color";
+
+.card {
+  @include card;
+  border-radius: 0 0 2rem 2rem;
+  margin: 2rem;
+  // overflow: hidden;
+  // cursor: pointer;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+    transition: transform 0.5s ease;
+    object-position: center;
+
+    // &:hover {
+    //   transform: scale(1.1);
+    // }
+  }
+
+  .card-info {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__title {
+    font-size: min(6vw, 5rem);
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* glow for readability */
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+    z-index: 10;
+    transition: scale 0.3s ease;
+
+    /* subtle hover or focus animation */
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    /* 📱 Mobile optimization */
+    @include respond("small-laptops") {
+      font-size: min(6vw, 4rem);
+    }
+  }
+
+  &__btn {
+    @include btn("glass");
+    position: absolute;
+    &--left {
+      left: -1.5rem;
+    }
+    &--right {
+      right: -1.5rem;
+    }
+  }
+
+  &__arrow {
+    position: absolute;
+  }
+}
+.play-btn {
+  @include btn("glass");
+  position: absolute;
+  padding: 1rem;
+
+  bottom: -3.5rem;
+  transform: translateX(-50);
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  &--icon {
+    margin-left: 0.7rem;
+  }
+}

@@ -1,0 +1,96 @@
+// ==============================
+// 🎬 MovieMood – Design Tokens (Dark Cinematic Theme)
+// ==============================
+
+// ---------- Colors (Base) ----------
+$color-bg: #080b14; // Deeper bluish-black background (darker tone for cinematic look)
+$color-surface: #121529; // Main card background (rich navy-violet)
+$color-surface-2: #1a1e33; // Elevated cards / overlays
+$color-border: rgba(255, 255, 255, 0.06); // Subtle borders with less contrast
+
+$color-text: #f5f7fa; // Light text for readability
+$color-muted: #a0a4b8; // Muted subtitles (cool gray-violet)
+
+$color-primary: #7aa2ff; // Soft neon blue (brand highlight)
+$color-accent: #ffcd4a; // Golden-yellow for ratings/stars
+$color-success: #31d67a; // Slightly vibrant green
+$color-danger: #ff5c5c; // Soft red accent for errors/favorites removed
+
+// Gradient overlay for hero section
+$gradient-primary: linear-gradient(
+  to top,
+  rgba(8, 11, 20, 0.95) 0%,
+  rgba(8, 11, 20, 0.6) 50%,
+  rgba(8, 11, 20, 0.1) 100%
+);
+
+// ---------- Typography ----------
+$font-sans: "Inter", "SF Pro Display", sans-serif;
+$font-headings: "Poppins", "SF Pro Display", sans-serif;
+
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+$lh-tight: 1.1;
+$lh-normal: 1.4;
+$lh-relaxed: 1.6;
+
+// ---------- Shadows ----------
+$shadow-s: 0 4px 10px rgba(0, 0, 0, 0.4);
+$shadow-m: 0 8px 24px rgba(0, 0, 0, 0.45);
+$shadow-l: 0 16px 48px rgba(0, 0, 0, 0.55);
+
+// ---------- Z-index ----------
+$z-nav: 100;
+$z-card: 200;
+$z-overlay: 400;
+$z-modal: 1000;
+
+// ---------- Component Tokens ----------
+$card-bg: $color-surface;
+$card-elevated-bg: $color-surface-2;
+$card-radius: 1rem;
+$card-shadow: $shadow-s;
+
+$hero-overlay: $gradient-primary;
+
+$navbar-bg: rgba(18, 21, 41, 0.8);
+$navbar-text: #e1e5ff;
+$navbar-highlight: $color-primary;
+
+$search-bg: rgba(255, 255, 255, 0.06);
+$search-border: rgba(255, 255, 255, 0.12);
+$search-text: #f3f4f6;
+
+$button-primary-bg: $color-primary;
+$button-primary-text: #ffffff;
+$button-hover-bg: lighten($color-primary, 8%);
+
+$fav-icon-color: $color-accent;
+$fav-icon-active: $color-success;
+
+// ---------- Transitions ----------
+$trs-fast: 120ms cubic-bezier(0.25, 0.8, 0.25, 1);
+$trs: 180ms cubic-bezier(0.25, 0.8, 0.25, 1);
+$trs-slow: 280ms cubic-bezier(0.25, 0.8, 0.25, 1);
+
+// ---------- CSS Variables (optional export) ----------
+:root {
+  --bg: #{$color-bg};
+  --surface: #{$color-surface};
+  --surface-2: #{$color-surface-2};
+  --border: #{$color-border};
+
+  --text: #{$color-text};
+  --muted: #{$color-muted};
+
+  --primary: #{$color-primary};
+  --accent: #{$color-accent};
+  --success: #{$color-success};
+  --danger: #{$color-danger};
+
+  --grad-primary: #{$gradient-primary};
+}
+

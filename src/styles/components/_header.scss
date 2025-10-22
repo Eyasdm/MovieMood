@@ -1,0 +1,140 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "sass:color";
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem 2rem 2rem 2rem;
+  padding: 1.2rem 2rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 2rem 2rem 0 0;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  z-index: $z-nav;
+
+  &__logo {
+    font-family: $font-headings;
+    font-size: 2.4rem;
+    font-weight: $font-weight-semibold;
+    color: $color-text;
+    letter-spacing: 0.5px;
+
+    &--mood {
+      color: $color-primary;
+      margin-left: 0.15rem;
+    }
+  }
+
+  &__container {
+    display: flex;
+    align-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    // border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1rem;
+
+    &--active {
+      background: transparent;
+      border: none;
+    }
+  }
+
+  &__search {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem;
+    width: 4.4rem;
+    height: 4rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    overflow: hidden;
+    &-icon {
+      width: 2.2rem;
+      height: 2.2rem;
+      margin-top: 0.3rem;
+      // margin: 0.5rem;
+      color: $color-text;
+      flex-shrink: 0;
+      transition: color $trs;
+
+      &:hover {
+        color: $color-primary;
+      }
+    }
+    &-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: $color-text;
+      font-size: 0.95rem;
+      opacity: 0;
+      width: 0;
+      transition: all 0.3s ease;
+      font-size: 1.8rem;
+
+      &::placeholder {
+        color: $color-muted;
+      }
+    }
+    &--active {
+      width: min(70vw, 100rem);
+      padding-left: 1rem;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      margin-right: 5rem;
+
+      @include respond("small-laptops") {
+        width: min(50vw, 40rem);
+        margin-right: 3rem;
+      }
+      .header__search-input {
+        opacity: 1;
+        width: 100%;
+      }
+    }
+  }
+
+  &__menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.5rem;
+
+    &--btn {
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(8px);
+      cursor: pointer;
+      transition: all $trs;
+
+      &:hover {
+        background: rgba(124, 77, 255, 0.15);
+        border-color: rgba(124, 77, 255, 0.3);
+        transform: scale(1.05);
+      }
+
+      &--icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        color: $color-text;
+        opacity: 0.9;
+        transition: color $trs;
+
+        &:hover {
+          scale: 1.1;
+        }
+      }
+    }
+  }
+}

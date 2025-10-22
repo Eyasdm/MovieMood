@@ -1,0 +1,206 @@
+@use "./variables" as *;
+@use "sass:map";
+@use "sass:color";
+
+// ==============================
+// MovieMood – Global Mixins (Dark Theme)
+// ==============================
+
+$breakpoints: (
+  "phones": 480px,
+
+  "tablets": 768px,
+
+  "small-laptops": 1024px,
+
+  "desktops": 1280px,
+
+  "large-screens": 1536px,
+);
+
+@mixin respond($breakpoint) {
+  $size: map.get($breakpoints, $breakpoint);
+
+  @if $size {
+    @media (max-width: $size) {
+      @content;
+    }
+  } @else {
+    @warn "⚠️ breakpoint `#{$breakpoint}` not found in $breakpoints map.";
+  }
+}
+
+// ---------- Card Styles ----------
+@mixin card {
+  background: rgba($card-bg, 0.9);
+  border-radius: $card-radius;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: $shadow-s;
+  backdrop-filter: blur(16px);
+  transition: transform $trs, box-shadow $trs, background $trs;
+
+  &:hover {
+    // transform: translateY(-4px);
+    box-shadow: $shadow-m;
+    background: color.adjust($card-bg, $lightness: 3%);
+  }
+}
+
+// ---------- Elevated Surfaces (Hero / Modal / Overlay) ----------
+@mixin elevated {
+  background: $card-elevated-bg;
+  border-radius: 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: $shadow-l;
+  backdrop-filter: blur(20px);
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: lighten($card-elevated-bg, 2%);
+  }
+}
+
+// ---------- Focus Ring ----------
+@mixin focus-ring {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba($color-primary, 0.25);
+  transition: box-shadow 0.2s ease;
+}
+
+// ---------- Select (Dropdown) ----------
+@mixin select {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid $color-border;
+  border-radius: 0.6rem;
+  outline: none;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: $color-text;
+  padding: 1rem 2.5rem 1rem 1.2rem;
+  cursor: pointer;
+  appearance: none;
+  backdrop-filter: blur(10px);
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.2rem;
+  transition: all $trs;
+
+  &:hover {
+    border-color: rgba($color-primary, 0.4);
+    box-shadow: 0 0 12px rgba($color-primary, 0.1);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 2px rgba($color-primary, 0.25);
+  }
+}
+
+// ---------- Buttons ----------
+@mixin btn($variant: "primary") {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-weight: 600;
+  font-size: 1.4rem;
+  padding: 1rem 1.8rem;
+  border-radius: 0.8rem;
+  border: none;
+  cursor: pointer;
+  transition: all $trs;
+  line-height: 1.1;
+
+  // ✅ Primary button (default)
+  @if $variant == "primary" {
+    background: $button-primary-bg;
+    color: $button-primary-text;
+    box-shadow: 0 6px 18px rgba($color-primary, 0.35);
+
+    &:hover {
+      filter: brightness(1.15);
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      filter: brightness(0.9);
+      transform: translateY(0);
+    }
+  }
+
+  // 🧊 Glass (arrow-style) button
+  @else if $variant == "glass" {
+    width: 4.4rem;
+    height: 5rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+    color: $color-text;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: $color-primary;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}
+
+// ---------- Input Fields ----------
+@mixin input {
+  width: 100%;
+  padding: 1.2rem 1.6rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  border-radius: 0.7rem;
+  border: 1px solid $color-border;
+  outline: none;
+  color: $color-text;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  transition: box-shadow 0.25s ease, border 0.25s ease;
+
+  &::placeholder {
+    color: $color-muted;
+    font-weight: 400;
+  }
+
+  &:focus {
+    border-color: $color-primary;
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.25);
+  }
+}
+
+// ---------- Glass Blur Utility ----------
+@mixin glass($opacity: 0.08, $blur: 14px) {
+  background: rgba(255, 255, 255, $opacity);
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+// ---------- Horizontal Scroll Wrapper ----------
+@mixin scroll-row {
+  display: flex;
+  overflow-x: auto;
+  gap: 1.2rem;
+  scroll-behavior: smooth;
+  padding-bottom: 0.5rem;
+
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
