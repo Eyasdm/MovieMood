@@ -17,8 +17,8 @@ function Header() {
 
   return (
     <div className="header">
-      <div className="header__logo">
-        Movie<span className="header__logo--mood">Mood</span>
+      <div className="header__logo logo">
+        Movie<span className="header__logo--mood logo--mood">Mood</span>
       </div>
 
       <div

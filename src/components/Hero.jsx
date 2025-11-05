@@ -1,106 +1,73 @@
+//for the big screen u need to adjust the design to fit the hero image in the frame.
+
+import { useState } from "react";
 import StarDisplay from "./StarDisplay";
 
-const movies = [
-  {
-    id: 1156594,
-    title: "Our Fault",
-    original_title: "Culpa nuestra",
-    overview:
-      "Jenna and Lion's wedding brings about the long-awaited reunion between Noah and Nick after their breakup. Will love be stronger than resentment?",
-    poster_path: "/yzqHt4m1SeY9FbPrfZ0C2Hi9x1s.jpg",
-    backdrop_path: "/7QirCB1o80NEFpQGlQRZerZbQEp.jpg",
-    release_date: "2025-10-15",
-    vote_average: 8.004,
-    original_language: "es",
-    popularity: 1160.9712,
-    genre_ids: [10749, 18],
-  },
-  {
-    id: 1197137,
-    title: "Black Phone 2",
-    original_title: "Black Phone 2",
-    overview:
-      "Four years after escaping The Grabber, Finney Blake is haunted again as his sister Gwen begins seeing terrifying visions.",
-    poster_path: "/evbguUd1BwExQgXMjG9n9AHMQpN.jpg",
-    backdrop_path: "/6zKjoOOb3OZnZuiHtQZn4Kd69Gq.jpg",
-    release_date: "2025-10-15",
-    vote_average: 7.338,
-    original_language: "en",
-    popularity: 154.1022,
-    genre_ids: [27, 53],
-  },
-  {
-    id: 575265,
-    title: "Mission: Impossible - The Final Reckoning",
-    original_title: "Mission: Impossible - The Final Reckoning",
-    overview:
-      "Ethan Hunt and his team race against time to stop a rogue AI known as the Entity from changing the world forever.",
-    poster_path: "/z53D72EAOxGRqdr7KXXWp9dJiDe.jpg",
-    backdrop_path: "/538U9snNc2fpnOmYXAPUh3zn31H.jpg",
-    release_date: "2025-05-17",
-    vote_average: 7.275,
-    original_language: "en",
-    popularity: 147.1501,
-    genre_ids: [28, 12, 53],
-  },
-  {
-    id: 533533,
-    title: "TRON: Ares",
-    original_title: "TRON: Ares",
-    overview:
-      "A highly sophisticated Program called Ares is sent from the digital world into the real one on a dangerous mission.",
-    poster_path: "/chpWmskl3aKm1aTZqUHRCtviwPy.jpg",
-    backdrop_path: "/np0dsehLDdbfyHFRtqCiL1GR0TQ.jpg",
-    release_date: "2025-10-08",
-    vote_average: 6.417,
-    original_language: "en",
-    popularity: 119.2987,
-    genre_ids: [878, 12, 28],
-  },
-  {
-    id: 1061474,
-    title: "Superman",
-    original_title: "Superman",
-    overview:
-      "Clark Kent embarks on a journey to reconcile his Kryptonian heritage with his human upbringing as the iconic hero, Superman.",
-    poster_path: "/wPLysNDLffQLOVebZQCbXJEv6E6.jpg",
-    backdrop_path: "/eGX66zonvc4bXg3rM08RUxdYSDx.jpg",
-    release_date: "2025-07-09",
-    vote_average: 7.441,
-    original_language: "en",
-    popularity: 119.7394,
-    genre_ids: [878, 12, 28],
-  },
-];
-
-function Hero() {
-  return (
-    <>
-      <Movie />
-    </>
-  );
+function Hero({ movies }) {
+  return <Movie movies={movies} />;
 }
-function Movie() {
+
+function Movie({ movies }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  if (!Array.isArray(movies) || movies.length === 0) {
+    return (
+      <div className="card card--loading">
+        <div className="card__img skeleton" />
+        <div className="card-info">
+          <div className="card__title skeleton skeleton--text" />
+        </div>
+      </div>
+    );
+  }
+
+  const IMG = "https://image.tmdb.org/t/p";
+  const movie = movies[currentIndex];
+
+  const poster = movie.backdrop_path
+    ? `${IMG}/original${movie.backdrop_path}` // 16:9 مناسب للهيرو
+    : `${IMG}/w780${movie.poster_path}`; // fallback
+
+  function handleNext() {
+    setCurrentIndex(currentIndex + 1);
+  }
+  function handlePrevious() {
+    setCurrentIndex(currentIndex - 1);
+  }
+
   return (
     <div className="card">
-      <img
-        // src={`https://image.tmdb.org/t/p/w500${movies[4].backdrop_path}`}
-        src={`https://image.tmdb.org/t/p/original${movies[0].backdrop_path}`}
-        alt={`${movies[0].title} poster`}
-        className="card__img"
-      />
-      <div className="card-info">
-        <h3 className="card__title">{movies[0].title}</h3>
-        <StarDisplay rating={4} />
+      <div className="card__img--box">
+        <img
+          // src={`https://image.tmdb.org/t/p/w500${movies[4].backdrop_path}`}
+          src={poster}
+          alt={`${movie?.title ?? "Movie"} poster`}
+          className="card__img"
+        />
       </div>
-      <div className="card__btn card__btn--right">
+      {/* <img
+        src={poster}
+        alt={`${movie?.title ?? "Movie"} poster`}
+        className="card__img"
+        // loading="eager"
+      /> */}
+      <div className="card-info">
+        <h3 className="card__title">{movie?.title ?? "Untitled"}</h3>
+        <StarDisplay rating={Math.round((movie?.vote_average ?? 0) / 2)} />
+      </div>
+
+      <button
+        className="card__btn card__btn--right"
+        aria-label="Next"
+        onClick={handleNext}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="card__arrow--right card__arrow"
+          className="card__arrow card__arrow--right"
         >
           <path
             strokeLinecap="round"
@@ -108,16 +75,20 @@ function Movie() {
             d="m8.25 4.5 7.5 7.5-7.5 7.5"
           />
         </svg>
-      </div>
+      </button>
 
-      <div className="card__btn card__btn--left">
+      <button
+        className="card__btn card__btn--left"
+        aria-label="Previous"
+        onClick={handlePrevious}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="card__arrow--left card__arrow"
+          className="card__arrow card__arrow--left"
         >
           <path
             strokeLinecap="round"
@@ -125,8 +96,9 @@ function Movie() {
             d="M15.75 19.5 8.25 12l7.5-7.5"
           />
         </svg>
-      </div>
-      <div className="play-btn">
+      </button>
+
+      <button className="play-btn" aria-label="Play trailer">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -141,7 +113,7 @@ function Movie() {
             d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"
           />
         </svg>
-      </div>
+      </button>
     </div>
   );
 }

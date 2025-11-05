@@ -1,0 +1,54 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "sass:color";
+.row {
+  position: relative;
+  margin: 0 2rem 6rem;
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 3.2rem;
+    font-weight: 600;
+    margin-bottom: 1.6rem;
+
+    &--line {
+      display: inline-block;
+      width: 4px;
+      height: 4rem;
+      background-color: #5799ef;
+      border-radius: 2px;
+    }
+  }
+
+  &__list {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 21rem;
+    gap: 1.6rem;
+    overflow: hidden;
+    padding: 0.25rem 0 0.5rem;
+    scroll-snap-type: inline mandatory;
+  }
+
+  &__item {
+    scroll-snap-align: start;
+  }
+
+  &__nav {
+    @include btn("glass");
+    padding: 1rem 2rem;
+    place-items: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    &--left {
+      left: -6px;
+    }
+    &--right {
+      right: -6px;
+    }
+  }
+}

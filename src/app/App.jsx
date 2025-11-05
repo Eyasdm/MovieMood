@@ -1,17 +1,29 @@
+import Footer from "../components/Footer.jsx";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
+import Row from "../components/Row";
+import { MovieProvider } from "../context/MoviesProvider.jsx";
+import { useRowMovies } from "../hooks/useRowMovies.js";
 
 function App() {
-  // const apiKey = import.meta.env.VITE_TMDB_API_KEY;
-
-  // fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`)
-  //   .then((res) => res.json())
-  //   .then((data) => console.log(data.results));
+  const { movies: upcoming } = useRowMovies("movie/upcoming");
+  const { movies: nowPlaying } = useRowMovies("movie/now_playing");
+  const { movies: trending } = useRowMovies("trending/movie/week");
+  const { movies: topRated } = useRowMovies("movie/top_rated");
+  const { movies: popular } = useRowMovies("movie/popular");
 
   return (
     <>
-      <Header />
-      <Hero />
+      <MovieProvider>
+        <Header />
+        <Hero movies={popular} />
+        <Row title="🔥 Trending This Week" movies={trending} />
+        <Row title="🍿 Now Playing" movies={nowPlaying} />
+        <Row title="⭐ Top Rated" movies={topRated} />
+        <Row title="🌍 Popular" movies={popular} />
+        <Row title="🕒 Upcoming" movies={upcoming} />
+        <Footer />
+      </MovieProvider>
     </>
   );
 }

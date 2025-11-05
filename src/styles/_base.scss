@@ -48,3 +48,16 @@ body {
 .margin {
   margin: 1.5rem 0;
 }
+
+.logo {
+  font-family: $font-headings;
+  font-size: 2.4rem;
+  font-weight: $font-weight-semibold;
+  color: $color-text;
+  letter-spacing: 0.5px;
+
+  &--mood {
+    color: $color-primary;
+    margin-left: 0.15rem;
+  }
+}

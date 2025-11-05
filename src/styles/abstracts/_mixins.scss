@@ -38,12 +38,6 @@ $breakpoints: (
   box-shadow: $shadow-s;
   backdrop-filter: blur(16px);
   transition: transform $trs, box-shadow $trs, background $trs;
-
-  &:hover {
-    // transform: translateY(-4px);
-    box-shadow: $shadow-m;
-    background: color.adjust($card-bg, $lightness: 3%);
-  }
 }
 
 // ---------- Elevated Surfaces (Hero / Modal / Overlay) ----------
@@ -104,31 +98,40 @@ $breakpoints: (
   gap: 0.6rem;
   font-weight: 600;
   font-size: 1.4rem;
-  padding: 1rem 1.8rem;
+  padding: 1rem 5rem;
   border-radius: 0.8rem;
   border: none;
   cursor: pointer;
-  transition: all $trs;
+  transition: all 0.25s ease;
   line-height: 1.1;
 
-  // ✅ Primary button (default)
+  // ✅ Primary button (for cards)
   @if $variant == "primary" {
-    background: $button-primary-bg;
-    color: $button-primary-text;
-    box-shadow: 0 6px 18px rgba($color-primary, 0.35);
+    background: #1a1a1a;
+    color: #d0d0d0;
+    border: none;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: transform 0.25s ease;
 
     &:hover {
-      filter: brightness(1.15);
-      transform: translateY(-2px);
+      background: #2a2a2a;
+      filter: brightness(1.05);
     }
 
     &:active {
-      filter: brightness(0.9);
       transform: translateY(0);
+      filter: brightness(0.85);
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
   }
 
-  // 🧊 Glass (arrow-style) button
+  // 🧊 Glass (arrow-style) button — untouched
   @else if $variant == "glass" {
     width: 4.4rem;
     height: 5rem;
@@ -136,16 +139,23 @@ $breakpoints: (
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.12);
     backdrop-filter: blur(8px);
-    color: $color-text;
+    color: #ffffff;
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
     transition: all 0.3s ease;
+    z-index: 10;
 
     &:hover {
-      color: $color-primary;
+      color: #4e7dfc;
     }
 
     &:active {
       transform: scale(0.98);
+    }
+    &:disabled {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
     }
   }
 }

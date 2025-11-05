@@ -13,6 +13,9 @@
 
 // Components
 @use "./components/card";
+@use "./components/SkeletonCard";
+@use "./components/Moviecard";
 @use "./components/header";
 @use "./components/modal";
 @use "./components/row";
+@use "./components/footer";

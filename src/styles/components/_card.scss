@@ -6,25 +6,33 @@
   @include card;
   border-radius: 0 0 2rem 2rem;
   margin: 2rem;
-  // overflow: hidden;
-  // cursor: pointer;
+  position: relative;
   height: 80vh;
+
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  margin-bottom: 8rem;
 
-  &__img {
+  &:hover {
+    // transform: translateY(-4px);
+    box-shadow: $shadow-m;
+    // background: color.adjust($card-bg, $lightness: 3%);
+  }
+  .card__img--box {
+    width: 100%;
+    height: 80vh;
+    overflow: hidden;
+    background: #0a0a1a;
+  }
+
+  .card__img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    border-radius: inherit;
-    transition: transform 0.5s ease;
+    object-fit: contain;
     object-position: center;
-
-    // &:hover {
-    //   transform: scale(1.1);
-    // }
+    transform: scale(1.08);
   }
 
   .card-info {
@@ -47,11 +55,8 @@
     line-height: 1.2;
     z-index: 10;
     transition: scale 0.3s ease;
-
-    /* subtle hover or focus animation */
-    &:hover {
-      transform: scale(1.1);
-    }
+    text-align: center;
+    white-space: normal;
 
     /* 📱 Mobile optimization */
     @include respond("small-laptops") {
@@ -61,7 +66,9 @@
 
   &__btn {
     @include btn("glass");
+    padding: 1rem 2rem;
     position: absolute;
+
     &--left {
       left: -1.5rem;
     }
