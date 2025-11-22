@@ -2,39 +2,66 @@
 @use "../abstracts/mixins" as *;
 @use "sass:color";
 
+// Hero card component used in the main slider / featured movie.
+// Layout: full-height visual card with image background, centered title,
+// and navigation arrows on the left/right edges.
+
 .card {
   @include card;
-  border-radius: 0 0 2rem 2rem;
-  margin: 2rem;
-  position: relative;
-  height: 80vh;
 
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  margin-bottom: 8rem;
+
+  height: 80vh;
+  margin: 2rem 0 8rem 2rem;
+
+  border-radius: 0 0 0 2rem;
+
+  @include respond("tablets") {
+    border-radius: 0 0 2rem 2rem;
+    margin: 2rem 2rem 8rem 2rem;
+    height: 40vh;
+  }
+  @include respond("phones") {
+    margin: 1rem 1rem 6rem 1rem;
+  }
 
   &:hover {
-    // transform: translateY(-4px);
-    box-shadow: $shadow-m;
-    // background: color.adjust($card-bg, $lightness: 3%);
+    // Use themed medium shadow (changes with light/dark theme)
+    box-shadow: var(--shadow-m);
   }
+
+  // Wrapper around the poster/backdrop image.
+  // Uses the global themed background instead of a hardcoded color.
   .card__img--box {
     width: 100%;
     height: 80vh;
     overflow: hidden;
-    background: #0a0a1a;
+    border-radius: 0 0 0 2rem;
+    background: var(--color-bg);
+
+    @include respond("tablets") {
+      border-radius: 0 0 2rem 2rem;
+      height: 40vh;
+    }
   }
 
+  // Movie backdrop/poster image.
   .card__img {
     width: 100%;
     height: 100%;
     object-fit: contain;
     object-position: center;
     transform: scale(1.08);
+
+    @include respond("small-laptops") {
+      object-fit: cover;
+    }
   }
 
+  // Centered info block (title, extra meta) overlayed on top of the image.
   .card-info {
     position: absolute;
     bottom: 1rem;
@@ -46,34 +73,67 @@
     align-items: center;
   }
 
+  // Title styles. Size variants adapt to movie name length and screen size.
   &__title {
-    font-size: min(6vw, 5rem);
     font-weight: 700;
-    color: #fff;
-    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* glow for readability */
+    color: #fff; // Always white over the hero image for maximum contrast.
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
     letter-spacing: 0.5px;
     line-height: 1.2;
     z-index: 10;
-    transition: scale 0.3s ease;
     text-align: center;
     white-space: normal;
+    text-wrap: balance;
 
-    /* 📱 Mobile optimization */
+    font-size: clamp(2.2rem, 4vw, 4rem);
+
     @include respond("small-laptops") {
-      font-size: min(6vw, 4rem);
+      font-size: clamp(2rem, 3.5vw, 3.4rem);
+    }
+
+    &--xl {
+      font-size: clamp(3.2rem, 6vw, 5.4rem);
+    }
+
+    &--lg {
+      font-size: clamp(2.6rem, 5vw, 4.6rem);
+    }
+
+    &--md {
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+    }
+
+    &--sm {
+      font-size: clamp(1.6rem, 3vw, 2.8rem);
+      line-height: 1.15;
+      max-width: 80%;
+    }
+    @include respond("phones") {
+      font-size: clamp(1.2rem, 3.5vw, 3rem);
+      max-width: 85%;
     }
   }
 
+  // Left/right navigation buttons (next/previous slide).
   &__btn {
     @include btn("glass");
-    padding: 1rem 2rem;
     position: absolute;
+    padding: 1rem 2rem;
 
     &--left {
       left: -1.5rem;
+
+      @include respond("phones") {
+        left: -0.8rem;
+      }
     }
+
     &--right {
       right: -1.5rem;
+
+      @include respond("phones") {
+        right: -0.8rem;
+      }
     }
   }
 
@@ -81,17 +141,28 @@
     position: absolute;
   }
 }
+
+// Central circular play button overlayed under the title.
+// Typically used to open trailer/preview.
 .play-btn {
   @include btn("glass");
   position: absolute;
-  padding: 1rem;
 
   bottom: -3.5rem;
-  transform: translateX(-50);
+  left: 50%;
+  transform: translateX(-50%);
+
   width: 8rem;
   height: 8rem;
+  padding: 1rem;
   border-radius: 50%;
+
   &--icon {
     margin-left: 0.7rem;
+  }
+
+  @include respond("phones") {
+    width: 6rem;
+    height: 6rem;
   }
 }

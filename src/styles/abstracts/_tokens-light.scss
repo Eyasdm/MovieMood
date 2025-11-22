@@ -1,0 +1,158 @@
+@use "sass:color";
+
+// ==============================
+// MovieMood – Light Mode (Clean 2025)
+// ==============================
+
+// --- Base Colors (Light Theme Palette) ---
+$color-bg: #f5f7fb; // خلفية ناعمة فيها لمسة أزرق خفيفة
+$color-surface: #f7f8fa;
+$color-surface-2: #edf1ff; // سطح مرتفع خفيف مزرق للكروت المميزة
+$color-border: rgba(15, 23, 42, 0.1); // بوردر خفيف ناعم (slate)
+
+// نص عالي الكونتراست + نص ثانوي هادي
+$color-text: #0f172a; // Slate 900
+$color-muted: #64748b; // Slate 500–600
+
+// --- Accent & Status Colors ---
+$color-primary: #3d7cf0; // MovieMood Blue (البراند الأساسي)
+$color-accent: #f59e0b; // Amber ناعم (نجوم / هايلايت)
+$color-success: #16a34a; // Green 600
+$color-danger: #ef4444; // Red 500
+
+// ==============================
+// Gradients
+// ==============================
+
+// هيرو جريدينت خفيف جداً فوق البوستر
+$gradient-primary: linear-gradient(
+  180deg,
+  rgba(245, 247, 255, 0.96) 0%,
+  rgba(245, 247, 255, 0.9) 30%,
+  rgba(245, 247, 255, 0.72) 65%,
+  rgba(245, 247, 255, 0.45) 100%
+);
+
+// خلفية البودي ناعمة بدون شغل زايد
+$gradient-body: linear-gradient(180deg, #fafbfc 0%, #f3f4f6 55%, #edeef1 100%);
+
+// Accent gradient للأزرار/البادجات المهمة
+$gradient-accent: linear-gradient(135deg, #3d7cf0, #6366f1);
+
+// ==============================
+// Typography
+// ==============================
+$font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  sans-serif;
+$font-headings: "Poppins", system-ui, -apple-system, BlinkMacSystemFont,
+  "Segoe UI", sans-serif;
+
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// ==============================
+// Shadows
+// ==============================
+$shadow-s: 0 8px 20px rgba(15, 23, 42, 0.06);
+$shadow-m: 0 14px 35px rgba(15, 23, 42, 0.08);
+$shadow-l: 0 22px 60px rgba(15, 23, 42, 0.12);
+
+// ==============================
+// Z-Index
+// ==============================
+$z-nav: 100;
+$z-card: 200;
+$z-overlay: 400;
+$z-modal: 1000;
+
+// ==============================
+// Card System
+// ==============================
+
+// كروت عامة (stats, info, sections…)
+$card-bg: $color-surface;
+$card-elevated-bg: $color-surface-2;
+$card-radius: 1.2rem;
+$card-shadow: $shadow-s;
+$card-border: $color-border;
+
+// كرت الأفلام في الهوم = نفس إحساس كروت الـ Main Cast
+$movie-card-bg: $card-elevated-bg; // ← أهم واحدة (تخلي الهوم زي الموفي ديتيلز)
+$movie-card-hover-bg: color.adjust($movie-card-bg, $lightness: -3%);
+$movie-card-border: $card-border;
+$movie-card-shadow: $card-shadow;
+
+// ==============================
+// Hero
+// ==============================
+$hero-overlay: $gradient-primary;
+
+// ==============================
+// Search (Field)
+// ==============================
+$search-bg: rgba(15, 23, 42, 0.03);
+$search-border: rgba(15, 23, 42, 0.1);
+$search-text: $color-text;
+$search-card-greadiant: #dde1e6;
+$search-filter-bg: linear-gradient(
+  180deg,
+  color-mix(in srgb, var(--color-surface-2) 70%, white) 0%,
+  var(--color-surface-2) 100%
+);
+
+// ==============================
+// Buttons
+// ==============================
+$button-primary-bg: $color-primary;
+$button-primary-text: #ffffff;
+$button-hover-bg: color.adjust($color-primary, $lightness: -6%);
+
+// Muted / secondary buttons
+$color-button-muted: rgba(15, 23, 42, 0.03);
+$color-button-muted-hover: rgba(15, 23, 42, 0.07);
+
+// ==============================
+// Icons
+// ==============================
+$fav-icon-color: $color-accent; // قلوب / favorite
+$fav-icon-active: $color-success; // Active state
+$color-rating-star: $color-accent;
+
+// ==============================
+// Transitions
+// ==============================
+$trs-fast: 120ms cubic-bezier(0.25, 0.8, 0.25, 1);
+$trs: 180ms cubic-bezier(0.25, 0.8, 0.25, 1);
+$trs-slow: 280ms cubic-bezier(0.25, 0.8, 0.25, 1);
+
+// ==============================
+// Watchlist Active
+// ==============================
+$color-watchlist-active-bg: color.change($color-primary, $alpha: 0.06);
+$color-watchlist-active-border: color.change($color-primary, $alpha: 0.35);
+$color-watchlist-active-bg-hover: color.change($color-primary, $alpha: 0.09);
+$color-watchlist-active-border-hover: color.change($color-primary, $alpha: 0.5);
+
+// ==============================
+// Trailer Hover
+// ==============================
+$color-trailer-hover-bg: rgba(15, 23, 42, 0.04);
+$color-trailer-hover-text: $color-muted;
+
+// ==============================
+// Navigation Overlay (Light)
+// ==============================
+$color-nav-ovl-bubble-inner: rgba(61, 124, 240, 0.18);
+$color-nav-ovl-bubble-mid: rgba(61, 124, 240, 0.1);
+$color-nav-ovl-bubble-outer: #f1f4ff;
+
+$color-nav-ovl-overlay-highlight: #ffffff;
+$color-nav-ovl-overlay-base: rgba(245, 247, 255, 0.98);
+
+$color-nav-ovl-hover-fill: rgba(15, 23, 42, 0.04);
+$color-nav-ovl-title: color.adjust($color-text, $lightness: -4%);
+$color-nav-ovl-close-hover: rgba(15, 23, 42, 0.05);
+$color-nav-ovl-focus-outline: rgba(37, 99, 235, 0.65);
+$color-nav-ovl-menu-active-bg: rgba(61, 124, 240, 0.07);

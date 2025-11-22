@@ -1,0 +1,112 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.mm-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: radial-gradient(
+      circle at top,
+      rgba(87, 153, 239, 0.24),
+      transparent 55%
+    ),
+    radial-gradient(circle at bottom, rgba(7, 11, 25, 0.92), $color-bg);
+
+  backdrop-filter: blur(12px);
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    text-align: center;
+  }
+
+  &__badge {
+    position: relative;
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    animation: mm-loader-float 2.4s ease-in-out infinite;
+    overflow: visible;
+  }
+
+  &__ring {
+    position: absolute;
+    inset: -0.4rem;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.12);
+    border-top-color: $color-primary;
+    border-right-color: $color-primary;
+    animation: mm-loader-spin 1s linear infinite;
+  }
+
+  &__icon {
+    width: 4.8rem;
+    height: 4.8rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(
+      135deg,
+      lighten($color-primary, 10%),
+      darken($color-primary, 10%)
+    );
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    color: #0b1020;
+    flex-shrink: 0;
+  }
+
+  &__icon-svg {
+    width: 2.4rem;
+    height: 2.4rem;
+    display: block;
+    flex-shrink: 0;
+  }
+
+  &__brand {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #e9eefb;
+
+    &--accent {
+      color: $color-primary;
+    }
+  }
+
+  &__message {
+    font-size: 1.4rem;
+    color: rgba(233, 238, 251, 0.78);
+  }
+
+  &__dots {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 0.2rem;
+
+    span {
+      width: 0.6rem;
+      height: 0.6rem;
+      border-radius: 999px;
+      background-color: $color-primary;
+      opacity: 0.3;
+      animation: mm-loader-dot 0.9s infinite alternate;
+
+      &:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+      &:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+    }
+  }
+}

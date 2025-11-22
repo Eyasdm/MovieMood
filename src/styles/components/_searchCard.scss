@@ -1,0 +1,252 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+// Vertical movie card used in search results and grids.
+// Layout: poster on the left, vertical rail on the right, rich footer meta.
+
+.vcard {
+  --chip-h: 2.4rem;
+  --chip-row-gap: 0.6rem;
+
+  position: relative;
+  cursor: pointer;
+  width: 22rem;
+
+  /* Card background */
+  background: var(--search-card-greadiant);
+
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-s);
+  color: var(--color-text);
+
+  transition: transform var(--trs-fast), border-color var(--trs-fast),
+    box-shadow var(--trs-fast);
+
+  @include respond("tablets") {
+    width: 18rem;
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--color-border) 60%, white 40%);
+    box-shadow: var(--shadow-m);
+
+    .vcard__poster img {
+      transform: scale(1.04);
+    }
+  }
+
+  &__fav {
+    border: none !important;
+    background: transparent;
+  }
+
+  /* Layout */
+  &--meta {
+    display: grid;
+    grid-template-columns: 1fr 4.6rem;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "poster rail"
+      "footer rail";
+    padding: 1rem;
+    height: 100%;
+  }
+
+  /* Poster */
+  &__poster {
+    grid-area: poster;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    border-radius: 0.6rem;
+    overflow: hidden;
+    background: linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.88),
+      rgba(245, 246, 248, 0.92)
+    );
+    backdrop-filter: blur(12px);
+
+    box-shadow: inset 0 1px 0
+      color-mix(in srgb, var(--color-text) 4%, transparent);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transform-origin: center;
+      transition: transform var(--trs-slow);
+    }
+  }
+
+  /* Right vertical rail */
+  &__rail {
+    margin-left: 0.8rem;
+    height: 12rem;
+    padding: 1rem 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-text) 4%, transparent) 0%,
+        color-mix(in srgb, var(--color-text) 2%, transparent) 100%
+      ),
+      var(--card-elevated-bg);
+
+    border: 1px solid var(--color-border);
+    border-radius: 2rem 2rem 5rem 5rem;
+
+    box-shadow: inset 0 1px 0
+        color-mix(in srgb, var(--color-text) 5%, transparent),
+      0 6px 16px rgba(0, 0, 0, 0.05);
+  }
+
+  &__year {
+    font-weight: var(--font-weight-bold);
+    font-size: 1.3rem;
+    line-height: 1;
+    color: var(--color-text);
+    background: transparent;
+    border-radius: 0.55rem;
+    padding: 0.28rem 0.5rem;
+  }
+
+  /* Footer */
+  &__footer {
+    grid-area: footer;
+    display: grid;
+    grid-template-rows:
+      auto
+      auto
+      minmax(calc(var(--chip-h) * 2 + var(--chip-row-gap)), auto);
+    gap: 1rem;
+    margin: 1rem;
+  }
+
+  &__title {
+    margin: 0;
+    color: var(--color-text);
+    font-weight: var(--font-weight-semibold);
+    font-size: 1.8rem;
+    letter-spacing: -0.015em;
+
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.35);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+    min-height: calc(1.2em * 2);
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  &__stars {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.1rem;
+  }
+
+  /* Star backgrounds */
+  &__star {
+    width: 1.3rem;
+    height: 1.3rem;
+    display: inline-block;
+
+    background: color-mix(in srgb, var(--color-text) 18%, transparent);
+
+    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/></svg>")
+      center/contain no-repeat;
+    mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/></svg>")
+      center/contain no-repeat;
+  }
+
+  &__star.is-full {
+    background: var(--color-rating-star);
+  }
+
+  &__star.is-half {
+    background: linear-gradient(
+      90deg,
+      var(--color-rating-star) 50%,
+      color-mix(in srgb, var(--color-text) 18%, transparent) 50%
+    );
+  }
+
+  &__genres--row {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 0.5rem;
+    row-gap: var(--chip-row-gap);
+  }
+
+  /* Genre chip */
+  &__genre-chip {
+    display: inline-flex;
+    align-items: center;
+    height: var(--chip-h);
+    white-space: nowrap;
+
+    padding: 0 1rem;
+    font-size: 1.2rem;
+    color: var(--color-text);
+
+    background: color-mix(in srgb, var(--card-bg) 80%, black);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+
+    box-shadow: inset 0 1px 0
+      color-mix(in srgb, var(--color-text) 4%, transparent);
+  }
+
+  &__year-badge {
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0.22rem 0.5rem;
+    font-weight: var(--font-weight-bold);
+    font-size: 0.82rem;
+    line-height: 1;
+
+    color: var(--color-text);
+    background: var(--card-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+  }
+}
+
+.search-grid {
+  align-items: stretch;
+}
+
+@media (max-width: 520px) {
+  .vcard--meta {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "poster"
+      "footer";
+    width: 100%;
+  }
+
+  .vcard__rail {
+    display: none;
+  }
+
+  .vcard__year-badge--mobile {
+    display: inline-flex;
+  }
+}

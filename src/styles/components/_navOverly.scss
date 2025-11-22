@@ -1,0 +1,334 @@
+@use "../abstracts/variables" as *;
+
+// Fullscreen navigation overlay opened from the header menu button.
+// Consists of a scaling background "bubble" + dark panel with grouped links.
+
+.nav-ovl {
+  pointer-events: none;
+
+  .nav-ovl__background {
+    transform: scale(1);
+    opacity: 0;
+  }
+
+  .nav-ovl__nav {
+    opacity: 0;
+  }
+
+  &.is-open {
+    pointer-events: auto;
+
+    .nav-ovl__background {
+      transform: scale(80);
+      opacity: 1;
+    }
+
+    .nav-ovl__nav {
+      opacity: 1;
+    }
+
+    .nav-ovl__close {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+
+    .nav-group__item,
+    .nav-group__btn {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    // Staggered animation for menu items (cascading entrance).
+    .nav-ovl__panel .nav-group__item:nth-child(1),
+    .nav-ovl__panel .nav-group__btn:nth-child(1) {
+      transition-delay: 0.06s;
+    }
+    .nav-ovl__panel .nav-group__item:nth-child(2),
+    .nav-ovl__panel .nav-group__btn:nth-child(2) {
+      transition-delay: 0.12s;
+    }
+    .nav-ovl__panel .nav-group__item:nth-child(3),
+    .nav-ovl__panel .nav-group__btn:nth-child(3) {
+      transition-delay: 0.18s;
+    }
+    .nav-ovl__panel .nav-group__item:nth-child(4),
+    .nav-ovl__panel .nav-group__btn:nth-child(4) {
+      transition-delay: 0.24s;
+    }
+    .nav-ovl__panel .nav-group__item:nth-child(5),
+    .nav-ovl__panel .nav-group__btn:nth-child(5) {
+      transition-delay: 0.3s;
+    }
+    .nav-ovl__panel .nav-group__item:nth-child(6),
+    .nav-ovl__panel .nav-group__btn:nth-child(6) {
+      transition-delay: 0.36s;
+    }
+    .nav-ovl__panel .nav-group__item:nth-child(7),
+    .nav-ovl__panel .nav-group__btn:nth-child(7) {
+      transition-delay: 0.42s;
+    }
+    .nav-ovl__panel .nav-group__item:nth-child(8),
+    .nav-ovl__panel .nav-group__btn:nth-child(8) {
+      transition-delay: 0.48s;
+    }
+    .nav-ovl__panel .nav-group__item:nth-child(9),
+    .nav-ovl__panel .nav-group__btn:nth-child(9) {
+      transition-delay: 0.54s;
+    }
+    .nav-ovl__panel .nav-group__item:nth-child(10),
+    .nav-ovl__panel .nav-group__btn:nth-child(10) {
+      transition-delay: 0.6s;
+    }
+  }
+}
+
+// Circular "bubble" that scales up to cover the screen.
+.nav-ovl__background {
+  position: fixed;
+  top: 6.5rem;
+  right: 6.5rem;
+  height: 6rem;
+  width: 6rem;
+  border-radius: 50%;
+  z-index: var(--z-overlay);
+
+  background-image: radial-gradient(
+    circle at 30% 30%,
+    var(--nav-ovl-bubble-inner) 0%,
+    var(--nav-ovl-bubble-mid) 40%,
+    var(--nav-ovl-bubble-outer) 80%
+  );
+
+  box-shadow: 0 10px 30px var(--nav-ovl-overlay-highlight),
+    inset 0 0 40px rgba(255, 255, 255, 0.04);
+
+  transition: transform 0.8s cubic-bezier(0.86, 0, 0.07, 1), opacity 0.3s ease;
+  will-change: transform;
+}
+
+// Root navigation layer that sits above the bubble.
+.nav-ovl__nav {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  transition: opacity 0.45s ease 0.12s;
+}
+
+// Main overlay background using theme-aware overlay colors.
+.nav-ovl__nav::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-body);
+
+  // background: radial-gradient(
+  //   1200px 800px at 70% 30%,
+  //   var(--nav-ovl-overlay-highlight),
+  //   var(--nav-ovl-overlay-base)
+  // );
+}
+
+// Panel containing grouped navigation columns.
+.nav-ovl__panel {
+  position: relative;
+  z-index: 1;
+
+  display: grid;
+  grid-template-columns: repeat(5, minmax(12rem, 1fr));
+  gap: 3rem 6rem;
+
+  width: min(110rem, 92vw);
+  margin: 0 auto;
+
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0 2rem;
+}
+
+// Floating close button at the top-right corner.
+.nav-ovl__close {
+  position: fixed;
+  top: 5.6rem;
+  right: 5.6rem;
+  z-index: 10000;
+
+  width: 3.6rem;
+  height: 3.6rem;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 0.9rem;
+  border: 1px solid var(--color-border);
+
+  background: color-mix(in srgb, var(--card-elevated-bg) 80%, transparent);
+
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  color: var(--color-text);
+  cursor: pointer;
+
+  transition: transform var(--trs-fast), background var(--trs-fast),
+    opacity 0.25s ease;
+
+  opacity: 0;
+  transform: scale(0.92);
+  pointer-events: none;
+
+  svg {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+}
+
+.nav-ovl__close:hover {
+  background: var(--nav-ovl-close-hover);
+  transform: scale(0.96);
+}
+
+// Column titles (Explore, Library, Genres, etc.)
+.nav-group__title {
+  color: var(--nav-ovl-title);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.08em;
+  font-size: 1.6rem;
+  margin-bottom: 1.2rem;
+  text-transform: uppercase;
+}
+
+// Base style for overlay navigation items and CTA buttons.
+.nav-group__toggle {
+  font-size: 1.5rem;
+  color: var(--color-text);
+  font-weight: 400 !important;
+}
+.nav-group__item,
+.nav-group__btn {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  margin: 0.6rem 0;
+  padding: 0.6rem 0.9rem;
+
+  font-size: 1.5rem;
+  color: var(--color-text);
+  text-align: left;
+  text-decoration: none;
+
+  border: none;
+  background: transparent;
+  border-radius: 0.6rem;
+
+  cursor: pointer;
+  overflow: hidden;
+
+  opacity: 0;
+  transform: translateX(-2rem);
+
+  transition: transform 0.55s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+    opacity 0.4s ease, background-position var(--trs), color 0.2s ease;
+
+  background-image: linear-gradient(
+    120deg,
+    transparent 0%,
+    transparent 50%,
+    var(--nav-ovl-hover-fill) 50%
+  );
+  background-size: 250%;
+  background-position: 0%;
+}
+
+.nav-group__item:hover,
+.nav-group__btn:hover {
+  color: var(--color-bg);
+  background-position: 100%;
+  transform: translateX(10px);
+}
+
+.nav-group__item:focus-visible,
+.nav-group__btn:focus-visible {
+  outline: 2px solid var(--nav-ovl-focus-outline);
+  outline-offset: 2px;
+}
+
+// Header menu button that triggers the overlay (icon-only).
+.header__menu--btn {
+  display: grid;
+  place-items: center;
+
+  width: 3.2rem;
+  height: 3.2rem;
+
+  border: none;
+  background: transparent;
+  color: var(--color-text);
+  border-radius: 0.8rem;
+
+  cursor: pointer;
+  transition: background var(--trs-fast), transform var(--trs-fast);
+}
+
+.header__menu--btn:hover {
+  background: var(--color-button-muted-hover);
+  transform: translateY(-1px);
+}
+
+.header__menu--btn.is-active {
+  background: var(--nav-ovl-menu-active-bg);
+  color: var(--color-text);
+}
+
+.header__menu--btn--icon {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+// Responsive tweaks for overlay origin and layout.
+@media (max-width: 56.25em) {
+  .nav-ovl__background {
+    top: 4.5rem;
+    right: 4.5rem;
+  }
+
+  .nav-ovl__close {
+    top: 4rem;
+    right: 4rem;
+  }
+
+  .nav-ovl__panel {
+    grid-template-columns: repeat(2, minmax(14rem, 1fr));
+    gap: 2rem 4rem;
+  }
+}
+
+@media (max-width: 37.5em) {
+  .nav-ovl__background {
+    top: 3.3rem;
+    right: 3.3rem;
+    height: 5.2rem;
+    width: 5.2rem;
+  }
+
+  .nav-ovl__close {
+    top: 3rem;
+    right: 3rem;
+  }
+
+  .nav-ovl__panel {
+    gap: 1.6rem;
+    width: min(92vw, 40rem);
+  }
+}
+
+// Ensure hero/slider arrows stay above overlay background when needed.
+.hero .arrow,
+.slider .arrow,
+.swiper-button-prev,
+.swiper-button-next {
+  z-index: var(--z-card) !important;
+}

@@ -1,16 +1,15 @@
 @use "sass:color";
 
-// MovieMood – Dark Mode (Emerald)
-$color-bg: #0b130f; // خلفية داكنة خضراء مائلة للأسود
-$color-surface: #11221a; // سطح غامق أخضر زيتوني
-$color-surface-2: #162c23; // سطح مرتفع أفتح قليلاً
+$color-bg: #0b130f;
+$color-surface: #11221a;
+$color-surface-2: #162c23;
 $color-border: rgba(255, 255, 255, 0.07);
 
-$color-text: #e6f2ef; // نص أخضر باهت مريح
-$color-muted: #9fb8af; // نص ثانوي أخضر مُعتَّم
+$color-text: #e6f2ef;
+$color-muted: #9fb8af;
 
 $color-primary: #5799ef;
-$color-accent: #7fcf88; // أخضر زيتوني فاتح للأزرار والنجوم
+$color-accent: #7fcf88;
 $color-success: #3ddc84;
 $color-danger: #d45d6a;
 
@@ -51,6 +50,13 @@ $hero-overlay: $gradient-primary;
 $search-bg: rgba(255, 255, 255, 0.08);
 $search-border: rgba(255, 255, 255, 0.15);
 $search-text: $color-text;
+$search-card-greadiant: linear-gradient(
+  180deg,
+  var(--card-bg) 0%,
+  color-mix(in srgb, var(--card-bg) 85%, black) 100%
+);
+$search-filter-bg: color-mix(in srgb, var(--color-bg) 92%, black 8%),
+  url("/assets/textures/noise-dark.png");
 
 $button-primary-bg: $color-primary;
 $button-primary-text: #ffffff;
@@ -78,7 +84,7 @@ $color-trailer-hover-bg: rgba(255, 255, 255, 0.08);
 $color-trailer-hover-text: $color-muted;
 
 $color-rating-star: $color-accent;
-// Nav overlay – neutral monochrome
+
 $color-nav-ovl-bubble-inner: rgba(255, 255, 255, 0.24);
 $color-nav-ovl-bubble-mid: rgba(255, 255, 255, 0.12);
 $color-nav-ovl-bubble-outer: $color-surface-2;

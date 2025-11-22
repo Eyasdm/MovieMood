@@ -1,23 +1,53 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/mixins" as *;
-@use "sass:color";
+
+// Horizontal movie row used on the home page and details page.
+// Layout: title + decorative line + horizontal scroller with nav arrows.
+
 .row {
   position: relative;
-  margin: 0 2rem 6rem;
+
+  --row-item-w: 210px;
+  --row-gap: 16px;
+
+  &__home--title {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+
+    &::after {
+      content: "";
+      width: 1rem;
+      height: 1rem;
+      border-right: 4px solid currentColor;
+      border-bottom: 4px solid currentColor;
+      transform: rotate(-45deg);
+      margin-left: 8px;
+      border-radius: 1px;
+      transition: var(--trs);
+    }
+
+    &:hover::after {
+      color: var(--color-primary);
+      margin-left: 10px;
+      transform: translateX(2px) rotate(-45deg);
+    }
+  }
 
   &__title {
     display: flex;
     align-items: center;
     gap: 0.8rem;
+
     font-size: 3.2rem;
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     margin-bottom: 1.6rem;
 
+    &-line,
     &--line {
-      display: inline-block;
       width: 4px;
       height: 4rem;
-      background-color: #5799ef;
+      background-color: var(--color-primary);
       border-radius: 2px;
     }
   }
@@ -25,30 +55,147 @@
   &__list {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: 21rem;
-    gap: 1.6rem;
+    grid-auto-columns: var(--row-item-w);
+    gap: var(--row-gap);
+
     overflow: hidden;
-    padding: 0.25rem 0 0.5rem;
+    padding: 0.25rem 3.6rem 0.5rem 3.6rem;
+
+    scroll-behavior: smooth;
     scroll-snap-type: inline mandatory;
   }
 
   &__item {
+    width: var(--row-item-w);
     scroll-snap-align: start;
   }
 
   &__nav {
     @include btn("glass");
-    padding: 1rem 2rem;
-    place-items: center;
+
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
 
+    width: 4.2rem;
+    height: 4.2rem;
+    padding: 0;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: var(--color-button-muted-hover);
+    backdrop-filter: blur(6px);
+
+    transition: transform var(--trs-fast), filter var(--trs),
+      border-color var(--trs);
+
+    &:hover {
+      transform: translateY(-50%) scale(1.04);
+      filter: brightness(1.08);
+
+      /* كان color.adjust() هنا */
+      border-color: color-mix(in srgb, var(--color-border) 30%, transparent);
+    }
+
+    &:active {
+      transform: translateY(-50%) scale(0.98);
+    }
+
+    &:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
     &--left {
-      left: -6px;
+      left: 0;
+      translate: -6px 0;
     }
+
     &--right {
-      right: -6px;
+      right: 0;
+      translate: 6px 0;
     }
+
+    & > svg,
+    .row__nav-icon {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+  }
+
+  &--cast {
+    --row-item-w: 140px;
+    --row-gap: 12px;
+
+    .row__title {
+      font-size: 2.2rem;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .row {
+    margin: 0 1.6rem 4.8rem;
+
+    &--cast {
+      --row-item-w: 132px;
+    }
+
+    &__list {
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .row {
+    margin: 0 0.5rem 2rem;
+
+    --row-item-w: 145px !important;
+    --row-gap: 12px !important;
+
+    &--cast {
+      --row-item-w: 124px;
+      --row-gap: 10px;
+    }
+
+    &__list {
+      // padding-left: 2.6rem;
+      // padding-right: 2.6rem;
+      padding: 0;
+    }
+
+    &__title {
+      font-size: 2.4rem;
+    }
+  }
+}
+
+.row--flush {
+  margin: 0 0 6rem;
+
+  .row__list {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .row__nav--left {
+    left: -8px;
+    translate: 0 -50%;
+  }
+
+  .row__nav--right {
+    right: -8px;
+    translate: 0 -50%;
   }
 }

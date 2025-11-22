@@ -1,13 +1,15 @@
-@use "./abstracts/variables" as *;
+// @use "./abstracts/variables" as *;
 @use "./abstracts/mixins" as *;
 @use "./abstracts/themes" as *;
+@use "./abstracts/tokens-dark.scss" as *;
+@use "./abstracts/tokens-light.scss" as *;
 
 // Base
 @use "./base";
 
 // Pages
-@use "./pages/details";
-@use "./pages/favourites";
+@use "./pages/movieDetails";
+@use "./pages/watchlist";
 @use "./pages/home";
 @use "./pages/search";
 
@@ -16,6 +18,12 @@
 @use "./components/SkeletonCard";
 @use "./components/Moviecard";
 @use "./components/header";
-@use "./components/modal";
 @use "./components/row";
 @use "./components/footer";
+@use "./components/filters";
+@use "./components/searchCard";
+@use "./components/pagination";
+@use "./components/navOverly";
+@use "./components/castMini";
+@use "./components/themeToggle";
+@use "./components/loader";

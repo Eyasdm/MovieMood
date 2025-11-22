@@ -1,0 +1,116 @@
+@use "../abstracts/variables" as *;
+// @use "sass:color"; // لم يعد مطلوباً
+
+// MovieMood pagination component used on listing/search pages.
+// Layout: pill container with numbered buttons and edge controls.
+
+.mm-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+
+  padding: 1rem 1.2rem;
+  margin: 2rem auto;
+  width: fit-content;
+  background: color-mix(in srgb, var(--card-bg) 92%, var(--color-bg) 8%);
+
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-s);
+}
+
+// List wrapper for page buttons.
+.mm-page-list {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  list-style: none;
+  padding: 0;
+  margin: 0 0.4rem;
+}
+
+// Base pagination button (numbers + prev/next if reused).
+.mm-page-btn {
+  min-width: 3.2rem;
+  height: 3.2rem;
+  padding: 0 1rem;
+
+  border-radius: 0.8rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-button-muted);
+
+  color: var(--color-text);
+  font-size: 1.2rem;
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+
+  cursor: pointer;
+  user-select: none;
+
+  transition: transform var(--trs-fast), box-shadow var(--trs-fast),
+    border-color var(--trs-fast), background var(--trs-fast);
+}
+
+.mm-page-btn:hover {
+  background: var(--color-button-muted-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-m);
+}
+
+// Active page (current index) – primary-highlighted.
+.mm-page-btn.is-active {
+  background: var(--color-primary);
+  border-color: color-mix(
+    in srgb,
+    var(--color-primary) 70%,
+    var(--color-border) 30%
+  );
+  color: white;
+  box-shadow: var(--shadow-l);
+
+  pointer-events: none;
+}
+
+// Disabled state for edge/number buttons.
+.mm-page-btn.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+// Optional wrapper for "Prev" / "Next" content.
+.mm-page-edge {
+  padding: 0 0.9rem;
+}
+
+// Ellipsis between page ranges (e.g. 1 … 10).
+.mm-page-ellipsis {
+  width: 3.2rem;
+  height: 3.2rem;
+
+  display: grid;
+  place-items: center;
+
+  color: var(--color-muted);
+  border: 1px dashed var(--color-border);
+  border-radius: 0.8rem;
+  background: color-mix(in srgb, var(--card-bg) 90%, black 10%);
+}
+
+// Small screens: slightly more compact pagination.
+@media (max-width: 480px) {
+  .mm-pagination {
+    gap: 0.6rem;
+    padding: 0.8rem;
+  }
+
+  .mm-page-btn,
+  .mm-page-ellipsis {
+    min-width: 2.6rem;
+    height: 2.8rem;
+    font-size: 0.85rem;
+    border-radius: 0.6rem;
+  }
+}

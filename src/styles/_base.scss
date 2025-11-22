@@ -6,22 +6,26 @@
   margin: 0;
   box-sizing: border-box;
 }
+
 html {
   /* The percentage of the user`s browser font-size setting (62.5%) */
   font-size: 62.5%;
   overflow-x: hidden;
   // scroll-behavior: smooth;
 }
+
 body {
-  font-family: $font-sans;
+  font-family: var(--font-sans);
   min-height: 100dvh;
   // padding-bottom: 10rem;
   line-height: 1;
   font-weight: 400;
-  color: $color-text;
+  color: var(--color-text);
   // overflow-x: hidden;
 
-  background: linear-gradient(180deg, #0e1424 0%, #131a2b 100%);
+  // background: linear-gradient(180deg, #0e1424 0%, #131a2b 100%);
+  background: var(--gradient-body);
+
   // position: relative;
 }
 
@@ -37,27 +41,33 @@ body {
 .grid--5--cols {
   grid-template-columns: repeat(5, 1fr);
 }
+.grid--6--cols {
+  grid-template-columns: repeat(5, 1fr);
+}
 
 .grid--center-v {
   align-items: center;
 }
+
 .container {
   padding-inline: 1.5rem;
   padding-bottom: 10rem;
 }
+
 .margin {
   margin: 1.5rem 0;
 }
 
 .logo {
-  font-family: $font-headings;
-  font-size: 2.4rem;
-  font-weight: $font-weight-semibold;
-  color: $color-text;
+  font-family: var(--font-headings);
+  font-size: 2.8rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
   letter-spacing: 0.5px;
+  cursor: pointer;
 
   &--mood {
-    color: $color-primary;
+    color: var(--color-primary);
     margin-left: 0.15rem;
   }
 }

@@ -157,6 +157,11 @@ $breakpoints: (
       pointer-events: none;
       transition: opacity 0.2s ease, visibility 0.2s ease;
     }
+    @include respond("phones") {
+      width: 2.8rem;
+      height: 3.5rem;
+      font-size: 1rem;
+    }
   }
 }
 

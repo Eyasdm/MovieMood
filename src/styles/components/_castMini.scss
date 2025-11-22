@@ -1,0 +1,85 @@
+@use "../abstracts/variables" as *;
+
+// Compact cast card used in MovieDetails and cast rows.
+
+.cast-mini {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+
+  /* ---- Card background using CSS color-mix for theme compatibility ---- */
+  background: linear-gradient(
+    180deg,
+    var(--card-elevated-bg) 0%,
+    color-mix(in srgb, var(--card-elevated-bg) 92%, black) 100%
+  );
+
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-s);
+  transition: transform var(--trs-fast), box-shadow var(--trs),
+    border-color var(--trs);
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--color-border) 50%, white 50%);
+    box-shadow: var(--shadow-m);
+
+    .cast-mini__img {
+      transform: scale(1.04);
+    }
+  }
+
+  /* ---- Image wrapper ---- */
+  &__img-wrap {
+    position: relative;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    background: var(--color-bg);
+    overflow: hidden;
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform var(--trs-slow);
+  }
+
+  /* ---- Info panel ---- */
+  &__info {
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--card-bg) 90%, transparent) 0%,
+      color-mix(in srgb, var(--card-bg) 85%, black) 100%
+    );
+    padding: 0.8rem 0.8rem 1rem;
+    text-align: center;
+  }
+
+  /* ---- Actor name ---- */
+  &__name {
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    font-size: 1.2rem;
+    margin: 0.8rem 0.8rem 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ---- Character role ---- */
+  &__role {
+    font-size: 1.2rem;
+    margin: 0 0.8rem 0.8rem;
+    color: var(--color-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

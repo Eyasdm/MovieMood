@@ -1,0 +1,219 @@
+@use "sass:color";
+@use "./tokens-light" as light;
+@use "./tokens-dark" as dark;
+
+// ==============================
+// THEME VARIABLES
+// ==============================
+
+// Light theme
+:root[data-theme="light"] {
+  --app-bg-img: "/assets/textures/light-noise.png";
+
+  // ---- Base colors ----
+  --color-bg: #{light.$color-bg};
+  --color-surface: #{light.$color-surface};
+  --color-surface-2: #{light.$color-surface-2};
+  --color-border: #{light.$color-border};
+
+  --color-text: #{light.$color-text};
+  --color-muted: #{light.$color-muted};
+
+  --color-primary: #{light.$color-primary};
+  --color-accent: #{light.$color-accent};
+  --color-success: #{light.$color-success};
+  --color-danger: #{light.$color-danger};
+
+  // ---- Gradients ----
+  --gradient-primary: #{light.$gradient-primary};
+  --gradient-body: #{light.$gradient-body};
+  --gradient-accent: #{light.$gradient-accent};
+
+  // ---- Typography ----
+  --font-sans: #{light.$font-sans};
+  --font-headings: #{light.$font-headings};
+
+  --font-weight-regular: #{light.$font-weight-regular};
+  --font-weight-medium: #{light.$font-weight-medium};
+  --font-weight-semibold: #{light.$font-weight-semibold};
+  --font-weight-bold: #{light.$font-weight-bold};
+
+  // ---- Shadows ----
+  --shadow-s: #{light.$shadow-s};
+  --shadow-m: #{light.$shadow-m};
+  --shadow-l: #{light.$shadow-l};
+
+  // ---- Z-index tokens ----
+  --z-nav: #{light.$z-nav};
+  --z-card: #{light.$z-card};
+  --z-overlay: #{light.$z-overlay};
+  --z-modal: #{light.$z-modal};
+
+  // ---- Card tokens ----
+  --card-bg: #{light.$card-bg};
+  --card-elevated-bg: #{light.$card-elevated-bg};
+  --card-radius: #{light.$card-radius};
+  --card-shadow: #{light.$card-shadow};
+
+  // ---- Hero ----
+  --hero-overlay: #{light.$hero-overlay};
+
+  // ---- Search ----
+  --search-bg: #{light.$search-bg};
+  --search-border: #{light.$search-border};
+  --search-text: #{light.$search-text};
+  --search-card-greadiant: #{light.$search-card-greadiant};
+  --search-filter-bg: #{light.$search-filter-bg};
+
+  // ---- Buttons ----
+  --button-primary-bg: #{light.$button-primary-bg};
+  --button-primary-text: #{light.$button-primary-text};
+  --button-hover-bg: #{light.$button-hover-bg};
+
+  --color-button-muted: #{light.$color-button-muted};
+  --color-button-muted-hover: #{light.$color-button-muted-hover};
+
+  // ---- Watchlist / state tokens ----
+  --color-watchlist-active-bg: #{light.$color-watchlist-active-bg};
+  --color-watchlist-active-border: #{light.$color-watchlist-active-border};
+  --color-watchlist-active-bg-hover: #{light.$color-watchlist-active-bg-hover};
+  --color-watchlist-active-border-hover: #{light.$color-watchlist-active-border-hover};
+
+  // ---- Trailer hover ----
+  --color-trailer-hover-bg: #{light.$color-trailer-hover-bg};
+  --color-trailer-hover-text: #{light.$color-trailer-hover-text};
+
+  // ---- Rating ----
+  --color-rating-star: #{light.$color-rating-star};
+
+  // ---- Fav icon ----
+  --fav-icon-color: #{light.$fav-icon-color};
+  --fav-icon-active: #{light.$fav-icon-active};
+
+  // ---- Transitions ----
+  --trs-fast: #{light.$trs-fast};
+  --trs: #{light.$trs};
+  --trs-slow: #{light.$trs-slow};
+
+  // ---- Nav overlay bubbles ----
+  --nav-ovl-bubble-inner: #{light.$color-nav-ovl-bubble-inner};
+  --nav-ovl-bubble-mid: #{light.$color-nav-ovl-bubble-mid};
+  --nav-ovl-bubble-outer: #{light.$color-nav-ovl-bubble-outer};
+
+  // ---- Nav overlay surfaces ----
+  --nav-ovl-overlay-highlight: #{light.$color-nav-ovl-overlay-highlight};
+  --nav-ovl-overlay-base: #{light.$color-nav-ovl-overlay-base};
+
+  // ---- Nav overlay UI ----
+  --nav-ovl-hover-fill: #{light.$color-nav-ovl-hover-fill};
+  --nav-ovl-title: #{light.$color-nav-ovl-title};
+  --nav-ovl-close-hover: #{light.$color-nav-ovl-close-hover};
+  --nav-ovl-focus-outline: #{light.$color-nav-ovl-focus-outline};
+  --nav-ovl-menu-active-bg: #{light.$color-nav-ovl-menu-active-bg};
+}
+
+// Dark theme
+:root[data-theme="dark"] {
+  --app-bg-img: "/assets/textures/dark-noise.png";
+
+  // ---- Base colors ----
+  --color-bg: #{dark.$color-bg};
+  --color-surface: #{dark.$color-surface};
+  --color-surface-2: #{dark.$color-surface-2};
+  --color-border: #{dark.$color-border};
+
+  --color-text: #{dark.$color-text};
+  --color-muted: #{dark.$color-muted};
+
+  --color-primary: #{dark.$color-primary};
+  --color-accent: #{dark.$color-accent};
+  --color-success: #{dark.$color-success};
+  --color-danger: #{dark.$color-danger};
+
+  // ---- Gradients ----
+  --gradient-primary: #{dark.$gradient-primary};
+  --gradient-body: #{dark.$gradient-body};
+  --gradient-accent: #{dark.$gradient-accent};
+
+  // ---- Typography ----
+  --font-sans: #{dark.$font-sans};
+  --font-headings: #{dark.$font-headings};
+
+  --font-weight-regular: #{dark.$font-weight-regular};
+  --font-weight-medium: #{dark.$font-weight-medium};
+  --font-weight-semibold: #{dark.$font-weight-semibold};
+  --font-weight-bold: #{dark.$font-weight-bold};
+
+  // ---- Shadows ----
+  --shadow-s: #{dark.$shadow-s};
+  --shadow-m: #{dark.$shadow-m};
+  --shadow-l: #{dark.$shadow-l};
+
+  // ---- Z-index tokens ----
+  --z-nav: #{dark.$z-nav};
+  --z-card: #{dark.$z-card};
+  --z-overlay: #{dark.$z-overlay};
+  --z-modal: #{dark.$z-modal};
+
+  // ---- Card tokens ----
+  --card-bg: #{dark.$card-bg};
+  --card-elevated-bg: #{dark.$card-elevated-bg};
+  --card-radius: #{dark.$card-radius};
+  --card-shadow: #{dark.$card-shadow};
+
+  // ---- Hero ----
+  --hero-overlay: #{dark.$hero-overlay};
+
+  // ---- Search ----
+  --search-bg: #{dark.$search-bg};
+  --search-border: #{dark.$search-border};
+  --search-text: #{dark.$search-text};
+  --search-card-greadiant: #{dark.$search-card-greadiant};
+  --search-filter-bg: #{dark.$search-filter-bg};
+
+  // ---- Buttons ----
+  --button-primary-bg: #{dark.$button-primary-bg};
+  --button-primary-text: #{dark.$button-primary-text};
+  --button-hover-bg: #{dark.$button-hover-bg};
+
+  --color-button-muted: #{dark.$color-button-muted};
+  --color-button-muted-hover: #{dark.$color-button-muted-hover};
+
+  // ---- Watchlist / state tokens ----
+  --color-watchlist-active-bg: #{dark.$color-watchlist-active-bg};
+  --color-watchlist-active-border: #{dark.$color-watchlist-active-border};
+  --color-watchlist-active-bg-hover: #{dark.$color-watchlist-active-bg-hover};
+  --color-watchlist-active-border-hover: #{dark.$color-watchlist-active-border-hover};
+
+  // ---- Trailer hover ----
+  --color-trailer-hover-bg: #{dark.$color-trailer-hover-bg};
+  --color-trailer-hover-text: #{dark.$color-trailer-hover-text};
+
+  // ---- Rating ----
+  --color-rating-star: #{dark.$color-rating-star};
+
+  // ---- Fav icon ----
+  --fav-icon-color: #{dark.$fav-icon-color};
+  --fav-icon-active: #{dark.$fav-icon-active};
+
+  // ---- Transitions ----
+  --trs-fast: #{dark.$trs-fast};
+  --trs: #{dark.$trs};
+  --trs-slow: #{dark.$trs-slow};
+
+  // ---- Nav overlay bubbles ----
+  --nav-ovl-bubble-inner: #{dark.$color-nav-ovl-bubble-inner};
+  --nav-ovl-bubble-mid: #{dark.$color-nav-ovl-bubble-mid};
+  --nav-ovl-bubble-outer: #{dark.$color-nav-ovl-bubble-outer};
+
+  // ---- Nav overlay surfaces ----
+  --nav-ovl-overlay-highlight: #{dark.$color-nav-ovl-overlay-highlight};
+  --nav-ovl-overlay-base: #{dark.$color-nav-ovl-overlay-base};
+
+  // ---- Nav overlay UI ----
+  --nav-ovl-hover-fill: #{dark.$color-nav-ovl-hover-fill};
+  --nav-ovl-title: #{dark.$color-nav-ovl-title};
+  --nav-ovl-close-hover: #{dark.$color-nav-ovl-close-hover};
+  --nav-ovl-focus-outline: #{dark.$color-nav-ovl-focus-outline};
+  --nav-ovl-menu-active-bg: #{dark.$color-nav-ovl-menu-active-bg};
+}

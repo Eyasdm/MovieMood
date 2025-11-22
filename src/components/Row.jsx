@@ -1,18 +1,25 @@
-import MovieCards from "./MovieCards";
+// components/Row.jsx
 import { useMemo, useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function Row({ title = "Top 10 movies this week", movies }) {
-  const items = useMemo(() => (Array.isArray(movies) ? movies : []), [movies]);
-
+export default function Row({
+  title = "Top 10 movies this week",
+  items: data,
+  renderItem,
+  pageSize = 5,
+  itemWidth = 210,
+  gap = 16,
+  className = "",
+  tab = false,
+  tabClassname = false,
+}) {
+  const items = useMemo(() => (Array.isArray(data) ? data : []), [data]);
   const scrollerRef = useRef(null);
+
   const [page, setPage] = useState(0);
-  const pageSize = 5;
-  const cardW = 210;
-  const gap = 16;
-
-  const pageWidth = pageSize * cardW + (pageSize - 1) * gap;
-
+  const pageWidth = pageSize * itemWidth + (pageSize - 1) * gap;
   const maxPage = Math.max(0, Math.ceil(items.length / pageSize) - 1);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const el = scrollerRef.current;
@@ -25,10 +32,23 @@ export default function Row({ title = "Top 10 movies this week", movies }) {
 
   if (!items.length) return null;
 
+  function handleNavigate() {
+    if (tab) navigate(tab);
+  }
+
   return (
-    <section className="row">
-      <div className="row__title">
-        <span className="row__title--line" />
+    <section
+      className={`row ${className}`}
+      style={{
+        ["--row-item-w"]: `${itemWidth}px`,
+        ["--row-gap"]: `${gap}px`,
+      }}
+    >
+      <div
+        className={`row__title ${tabClassname ? "row__home--title" : ""} `}
+        onClick={handleNavigate}
+      >
+        <span className="row__title-line" />
         {title}
       </div>
 
@@ -40,11 +60,11 @@ export default function Row({ title = "Top 10 movies this week", movies }) {
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          fill="none"
           viewBox="0 0 24 24"
-          strokeWidth={1.5}
+          strokeWidth="1.5"
           stroke="currentColor"
-          className="card__arrow--left card__arrow"
+          fill="none"
+          className="row__nav-icon"
         >
           <path
             strokeLinecap="round"
@@ -55,9 +75,9 @@ export default function Row({ title = "Top 10 movies this week", movies }) {
       </button>
 
       <div className="row__list" ref={scrollerRef}>
-        {items.map((m) => (
-          <div className="row__item" key={m.id}>
-            <MovieCards movie={m} />
+        {items.map((it) => (
+          <div className="row__item" key={it.id}>
+            {renderItem ? renderItem(it) : null}
           </div>
         ))}
       </div>
@@ -70,11 +90,11 @@ export default function Row({ title = "Top 10 movies this week", movies }) {
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          fill="none"
           viewBox="0 0 24 24"
-          strokeWidth={1.5}
+          strokeWidth="1.5"
           stroke="currentColor"
-          className="card__arrow--right card__arrow"
+          fill="none"
+          className="row__nav-icon"
         >
           <path
             strokeLinecap="round"

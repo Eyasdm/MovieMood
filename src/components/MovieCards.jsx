@@ -1,53 +1,91 @@
-import { useState } from "react";
+// components/MovieCard.jsx
+import { Link, useNavigate } from "react-router-dom";
+import { useWatchlist } from "../hooks/useWatchlist"; // ✅ المسار حسب مشروعك
+import StarToggle from "./StarToggle";
 
-// const movie = {
-//   id: 1156594,
-//   title: "Our Fault",
-//   original_title: "Culpa nuestra",
-//   overview:
-//     "Jenna and Lion's wedding brings about the long-awaited reunion between Noah and Nick after their breakup. Will love be stronger than resentment?",
-//   poster_path: "/yzqHt4m1SeY9FbPrfZ0C2Hi9x1s.jpg",
-//   backdrop_path: "/7QirCB1o80NEFpQGlQRZerZbQEp.jpg",
-//   release_date: "2025-10-15",
-//   vote_average: 8.004,
-//   original_language: "es",
-//   popularity: 1160.9712,
-//   genre_ids: [10749, 18],
-// };
-function MovieCards({ movie }) {
+export default function MovieCards({ movie }) {
+  const navigate = useNavigate();
+  const { addToWatchlist, isInWatchlist } = useWatchlist();
+
   const IMG = "https://image.tmdb.org/t/p";
-  const poster = movie.poster_path
+  const poster = movie?.poster_path
     ? `${IMG}/w500${movie.poster_path}`
     : "/assets/placeholder.jpg";
 
+  const rating =
+    typeof movie?.vote_average === "number"
+      ? movie.vote_average.toFixed(1)
+      : "—";
+
+  const title = movie?.title || movie?.original_title || "Untitled";
+
+  const inWatchlist = isInWatchlist(movie.id);
+
+  // Normalize movie object we store in watchlist
+  const normalizedMovie = {
+    id: movie.id,
+    title,
+    poster: poster,
+    rating,
+    release_date: movie.release_date,
+    content_rating: movie.certification || movie.rating, // عدّل ده لو عندك مصدر تاني
+    genres: movie.genre_names || movie.genres || [], // حسب الداتا عندك
+  };
+
+  function handleWatchlistClick(e) {
+    e.stopPropagation();
+
+    if (!inWatchlist) {
+      // 1) add movie
+      addToWatchlist(normalizedMovie);
+    } else {
+      // 2) go to watchlist
+      navigate("/watchlist");
+    }
+  }
+
   return (
     <div className="movie-card">
-      <div>
+      {/* Poster */}
+      <div className="movie-card__img-wrap">
         <img
           src={poster}
-          alt={`${movie.title} poster`}
+          alt={`${title} poster`}
           className="movie-card__img"
+          loading="lazy"
+          decoding="async"
         />
       </div>
+
+      {/* Rating row */}
       <div className="movie-card__rate">
-        <div className="movie-card__rate--icon">
-          <svg
-            className="movie-card__rate--svg"
-            viewBox="0 0 24 24"
-            fill="#F5C518"
-            width="20"
-            height="20"
-          >
-            <path d="M12 2l2.88 6.55 7.12.6-5.3 4.5 1.67 6.8L12 17.7 5.63 20.45l1.67-6.8-5.3-4.5 7.12-.6L12 2z" />
-          </svg>
+        <div className="movie-card__rating" aria-label="Rating out of 10">
+          <span className="movie-card__rating--icon">⭐</span>
+          <span className="movie-card__rating--value">{rating}</span>
         </div>
-        <div className="movie-card__rate--number">{movie.rating}</div>
-        <StarToggle />
       </div>
-      <div className="movie-card__title">{movie.title}</div>
+
+      {/* Title (link to details) */}
+      <Link
+        to={`/movie/${movie.id}`}
+        aria-label={`Open ${title} details`}
+        className="movie-card--link"
+      >
+        <h3 className="movie-card__title">{title}</h3>
+      </Link>
+
+      {/* Actions */}
       <div className="movie-card__btns">
-        <button className="movie-card__btns--wathlist-btn movie-card__btns--btn">
-          <span>
+        {/* Watchlist button with two states */}
+        <button
+          type="button"
+          className={`movie-card__btns--wathlist-btn movie-card__btns--btn ${
+            inWatchlist ? "movie-card__btns--wathlist-btn--active" : ""
+          }`}
+          onClick={handleWatchlistClick}
+          aria-label={inWatchlist ? "View Watchlist" : "Add to Watchlist"}
+        >
+          <span aria-hidden="true">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -61,11 +99,16 @@ function MovieCards({ movie }) {
               />
             </svg>
           </span>{" "}
-          Watchlist
+          {inWatchlist ? "View Watchlist" : "Add To Watchlist"}
         </button>
 
-        <button className="movie-card__btns--trailer-btn movie-card__btns--btn">
-          <span>
+        <button
+          type="button"
+          className="movie-card__btns--trailer-btn movie-card__btns--btn more-details"
+          onClick={() => navigate(`/movie/${movie.id}`)}
+          aria-label="Movie Details"
+        >
+          <span aria-hidden="true">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -79,32 +122,9 @@ function MovieCards({ movie }) {
               />
             </svg>
           </span>{" "}
-          Trailer
+          More Details
         </button>
       </div>
     </div>
   );
 }
-
-function StarToggle() {
-  const [isActive, setIsActive] = useState(false);
-
-  return (
-    <svg
-      onClick={() => setIsActive(!isActive)}
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      className={`star-icon ${isActive ? "active" : ""}`}
-    >
-      5
-      <path
-        d="M12 2l2.88 6.55 7.12.6-5.3 4.5 1.67 6.8L12 17.7 5.63 20.45l1.67-6.8-5.3-4.5 7.12-.6L12 2z"
-        fill={isActive ? "#5799EF" : "none"}
-        stroke="#5799EF"
-        strokeWidth="1.8"
-      />
-    </svg>
-  );
-}
-
-export default MovieCards;
