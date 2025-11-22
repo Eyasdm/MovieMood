@@ -1,29 +1,38 @@
-// @use "./abstracts/variables" as *;
+// ==============================
+// ABSTRACTS (variables, mixins, tokens, themes)
+// ==============================
+@use "./abstracts/variables" as *;
 @use "./abstracts/mixins" as *;
 @use "./abstracts/themes" as *;
-@use "./abstracts/tokens-dark.scss" as *;
-@use "./abstracts/tokens-light.scss" as *;
+@use "./abstracts/tokens-dark" as *;
+@use "./abstracts/tokens-light" as *;
 
-// Base
+// ==============================
+// BASE
+// ==============================
 @use "./base";
 
-// Pages
+// ==============================
+// PAGES
+// ==============================
 @use "./pages/movieDetails";
 @use "./pages/watchlist";
 @use "./pages/home";
 @use "./pages/search";
 
-// Components
+// ==============================
+// COMPONENTS
+// ==============================
 @use "./components/card";
 @use "./components/skeletonCard";
-@use "./components/moviecard";
+@use "./components/movieCard";
 @use "./components/header";
 @use "./components/row";
 @use "./components/footer";
 @use "./components/filters";
 @use "./components/searchCard";
 @use "./components/pagination";
-@use "./components/navOverly";
+@use "./components/navOverlay";
 @use "./components/castMini";
 @use "./components/themeToggle";
 @use "./components/loader";
