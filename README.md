@@ -7,8 +7,7 @@ It lets you browse trending movies, search by title and genre, view detailed mov
 
 ## 🔗 Live Demo
 
-> 🖥️ **Live Demo:** _add your Netlify/Vercel link here_  
-> 📦 **Repository:** _add your GitHub repo link here_
+> 🖥️ **Live Demo:** [_add your Netlify/Vercel link here_  ](https://moviemoood.netlify.app/)
 
 ---
 
