@@ -1,16 +1,76 @@
-# React + Vite
+# 🎬 MovieMood – Modern Movie Discovery App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+MovieMood is a modern, responsive movie discovery web app built with **React + Vite** and **SCSS (BEM architecture)**.  
+It lets you browse trending movies, search by title and genre, view detailed movie pages, and manage your personal **Watchlist** – all wrapped in a polished 2025-style UI with **light & dark themes**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔗 Live Demo
 
-## React Compiler
+> 🖥️ **Live Demo:** _add your Netlify/Vercel link here_  
+> 📦 **Repository:** _add your GitHub repo link here_
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🎭 **Beautiful UI + Theming**
+  - Fully responsive layout for desktop, tablet, and mobile
+  - **Light / Dark** (and future custom) themes using CSS variables
+  - Glassmorphism-inspired header, modern cards, and cinematic layouts
+
+- 🔍 **Smart Movie Browsing**
+  - Browse curated sections like _Trending_, _Top Rated_, _Now Playing_, etc.
+  - Horizontal scrollable rows with smooth navigation
+
+- 🎞️ **Movie Details Page**
+  - Big hero poster with gradient overlay
+  - Key info: rating, runtime, genres, release date
+  - Overview, cast section, and related movies rows
+
+- ⭐ **Watchlist (Local Storage)**
+  - Add / remove movies from your personal Watchlist
+  - Data stored in `localStorage` so it **persists between sessions**
+  - Visual indicator if a movie is already in the Watchlist
+
+- 🧭 **Search & Filters**
+  - Search movies by title
+  - Combine search with genre filters and pagination
+
+- ⚙️ **Performance & DX**
+  - Built with **Vite** for fast dev server & optimized build
+  - Custom hooks for fetching movies and managing state
+  - SCSS with a clear **7-1 architecture** + BEM naming
+
+---
+
+## 🛠 Tech Stack
+
+- **Frontend:** React, Vite
+- **Styling:** SCSS (Sass) with BEM methodology
+- **State & Logic:** React hooks (`useState`, `useEffect`, custom hooks)
+- **Routing:** React Router
+- **API:** [The Movie Database (TMDB) API](https://www.themoviedb.org/)
+- **Storage:** Browser `localStorage` for Watchlist
+- **Tooling:** NPM / Yarn
+
+---
+
+## 📂 Project Structure (High-Level)
+
+```bash
+src/
+  ├─ assets/           # Images, icons, static assets
+  ├─ components/       # Reusable UI components (Header, Footer, Card, Row, etc.)
+  ├─ pages/            # Page-level components (Home, Search, Watchlist, MovieDetails)
+  ├─ hooks/            # Custom hooks (useMovieDetails, useSearchMovies, useRowMovies, useWatchlist)
+  ├─ context/          # Context providers (e.g., MoviesContext, ThemeContext if used)
+  ├─ styles/
+  │   ├─ abstracts/    # Variables, mixins, tokens, themes
+  │   ├─ base/         # Base styles, resets, typography
+  │   ├─ components/   # Component-specific SCSS files
+  │   ├─ pages/        # Page-specific SCSS files
+  │   └─ main.scss     # Main entry SCSS file
+  ├─ App.jsx
+  ├─ main.jsx
+  └─ ...
