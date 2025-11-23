@@ -85,28 +85,40 @@ export default function NavOverlay({ open, onClose }) {
 
             <button
               className="nav-group__item nav-group__btn"
-              onClick={() => goTab(navigate, onClose, "/search?trending")}
+              onClick={() => {
+                navigate("/search?tab=trending&page=1");
+                onClose?.();
+              }}
             >
               Trending
             </button>
 
             <button
               className="nav-group__item nav-group__btn"
-              onClick={() => goTab(navigate, onClose, "/search?popular")}
+              onClick={() => {
+                navigate("/search?tab=popular&page=1");
+                onClose?.();
+              }}
             >
               Popular
             </button>
 
             <button
               className="nav-group__item nav-group__btn"
-              onClick={() => goTab(navigate, onClose, "/search?top")}
+              onClick={() => {
+                navigate("/search?tab=top&page=1");
+                onClose?.();
+              }}
             >
               Top Rated
             </button>
 
             <button
               className="nav-group__item nav-group__btn"
-              onClick={() => goTab(navigate, onClose, "/search?upcoming")}
+              onClick={() => {
+                navigate("/search?tab=upcoming&page=1");
+                onClose?.();
+              }}
             >
               Upcoming
             </button>
